@@ -12,7 +12,7 @@ def usage():
 def md5(file):
 	output = hashlib.md5()
 	with open(file, "rb") as f:
-		for chunk in iter(lambda: f.read(4096), b"")
+		for chunk in iter(lambda: f.read(4096), b""):
 			output.update(chunk)
 	return output.digest()
 
@@ -20,7 +20,7 @@ def md5(file):
 def sha256(file):
 	output = hashlib.sha256()
 	with open(file, "rb") as f:
-		for chunk in iter(lambda: f.read(4096), b"")
+		for chunk in iter(lambda: f.read(4096), b""):
 			output.update(chunk)
 	return output.digest()
 
@@ -39,9 +39,9 @@ if __name__ == "__main__":
 		file = sys.argv[1]
 		hash = sys.argv[2]
 		if algo == "MD5":
-			out = md5(file, hash)
-		else if algo == "SHA256":
-			out = sha256(file, hash)
+			out = md5(file)
+		elif algo == "SHA256":
+			out = sha256(file)
 		ok = True
 		with open(hash, 'r') as f:
 			actual_hash = f.read().replace('\n', '')
