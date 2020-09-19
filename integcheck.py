@@ -14,7 +14,7 @@ def md5(file):
 	with open(file, "rb") as f:
 		for chunk in iter(lambda: f.read(4096), b""):
 			output.update(chunk)
-	return output.digest()
+	return output.hexdigest()
 
 
 def sha256(file):
@@ -22,7 +22,7 @@ def sha256(file):
 	with open(file, "rb") as f:
 		for chunk in iter(lambda: f.read(4096), b""):
 			output.update(chunk)
-	return output.digest()
+	return output.hexdigest()
 
 
 if __name__ == "__main__":
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 			MD5
 			SHA256
 		Enter your choice:
-		''', end=' ')
+		''')
 		algo = input()
 		algo = algo.upper()
 		file = sys.argv[1]
