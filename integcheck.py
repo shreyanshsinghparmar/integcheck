@@ -9,7 +9,7 @@ def usage():
 	-h or --help: Display this message
 	''')
 
-def md5(file, hash):
+def md5(file):
 	output = hashlib.md5()
 	with open(file, "rb") as f:
 		for chunk in iter(lambda: f.read(4096), b"")
@@ -17,7 +17,7 @@ def md5(file, hash):
 	return output.digest()
 
 
-def sha256(file, hash):
+def sha256(file):
 	output = hashlib.sha256()
 	with open(file, "rb") as f:
 		for chunk in iter(lambda: f.read(4096), b"")
@@ -39,6 +39,13 @@ if __name__ == "__main__":
 		file = sys.argv[1]
 		hash = sys.argv[2]
 		if algo == "MD5":
-			md5(file, hash)
+			out = md5(file, hash)
 		else if algo == "SHA256":
-			sha256(file, hash)
+			out = sha256(file, hash)
+		ok = True
+		with open(hash, 'r') as f:
+			actual_hash = f.read().replace('\n', '')
+		if actual_hash == out:
+			print("File is original")
+		else:
+			print("File has been tampered")
